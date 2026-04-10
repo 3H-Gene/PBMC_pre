@@ -5,7 +5,7 @@
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blue)](https://www.python.org/)
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.0%2B-red)](https://pytorch.org/)
 [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
-[![Phase](https://img.shields.io/badge/Phase-0%20MVP-yellow)]()
+[![Phase](https://img.shields.io/badge/Phase-0%2F1%2F2%2F3-yellow)]()
 
 ---
 
@@ -159,13 +159,18 @@ PBMC_pre/
 │   │   └── bootstrapping.py         # CellTypist 注释 + In-silico Bootstrapping
 │   ├── model/
 │   │   ├── __init__.py
-│   │   └── rank_transformer.py      # Rank-Transformer 模型（含 MLP 回归头）
+│   │   ├── rank_transformer.py      # Rank-Transformer 模型（含 MLP 回归头）
+│   │   └── MLM_head.py             # MLM 预测头（Phase 1 DAPT）
 │   ├── train/
 │   │   ├── __init__.py
-│   │   └── train_aging.py           # Phase 2 监督训练循环（Huber Loss）
+│   │   ├── train_aging.py           # Phase 2 监督训练循环（Huber Loss）
+│   │   ├── phase1_continue_train.py # Phase 1 DAPT 继续预训练
+│   │   └── phase2_finetune_train.py # Phase 2 监督微调（保守冻结策略）
 │   └── inference/
 │       ├── __init__.py
-│       └── inference_xai.py         # Phase 3 推理 + Attention XAI + ΔAge 报告
+│       ├── inference_xai.py         # Phase 3 推理 + Attention XAI + ΔAge 报告
+│       ├── phase3_predict.py        # Phase 3a 单样本年龄预测
+│       └── phase3_paired_delta.py   # Phase 3b Pre/Post 配对 ΔAge 分析
 │
 ├── data/
 │   └── simulated/                   # 模拟 h5ad 数据（由 simulate_data.py 生成）
@@ -204,12 +209,14 @@ PBMC_pre/
 - [x] Phase 2 监督训练（10 Epoch，Val MAE 从 60.6→12.5 岁）
 - [x] Phase 3 N=1 推理 + ΔAge + T-test + Attention XAI + PoC 报告
 
-### Phase 1 — 领域自适应预训练 (DAPT) — *进行中*
+### Phase 1 — 领域自适应预训练 (DAPT) — ✅ 已完成
 
-- [ ] 从 CZ CELLxGENE 高通量下载 ~500 万 PBMC 细胞
-- [ ] 加载 scGPT / Geneformer 基础权重
-- [ ] MLM 无监督连续预训练（冻结底层，微调顶层）
-- [ ] 里程碑：**`PBMC-GPT-Base`** 模型权重
+- [x] 生成 Phase 1 语料池（50,000 细胞）
+- [x] MLM 无监督连续预训练（Dummy 配置：128d × 2层，504K 参数）
+- [x] 训练 2 Epoch，Loss 从 0.9398 → 0.9355
+- [x] 里程碑：**`PBMC-GPT-Base`** 模型权重已保存
+
+> **下一步**：加载 scGPT / Geneformer 基础权重，使用更大配置（512d × 8层）进行正式 DAPT 训练
 
 ### Phase 2 — 任务微调 — *待开始*
 

@@ -35,6 +35,7 @@ Thumbs.db
 # Simulated / real data (large binary files — use DVC or LFS if needed)
 data/simulated/*.h5ad
 data/real/
+data/*.h5ad          # Phase 1/2/3 h5ad files
 
 # Model checkpoints (large binary files)
 checkpoints/*.pt
