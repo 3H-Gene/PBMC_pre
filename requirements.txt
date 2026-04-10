@@ -1,0 +1,27 @@
+# PBMC-GPT dependencies
+# Python >= 3.10
+
+# Deep Learning
+torch>=2.0.0
+
+# Single-cell analysis
+anndata>=0.10.0
+scanpy>=1.9.0
+
+# Data science
+numpy>=1.24.0
+pandas>=2.0.0
+scipy>=1.10.0
+
+# Tabular output (for Markdown report)
+tabulate>=0.9.0
+
+# Optional: Model explainability (Phase 3 extension)
+# captum>=0.6.0
+
+# Optional: CellTypist annotation (Phase 1)
+# celltypist>=1.5.0
+
+# Optional: HuggingFace (Phase 1 DAPT)
+# transformers>=4.30.0
+# datasets>=2.0.0
