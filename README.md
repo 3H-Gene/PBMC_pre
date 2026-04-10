@@ -84,7 +84,7 @@ MLP 回归头   Attention XAI
 
 ```bash
 # 克隆仓库
-git clone https://github.com/YOUR_USERNAME/PBMC_pre.git
+git clone https://github.com/3H-Gene/PBMC_pre.git
 cd PBMC_pre
 
 # 创建虚拟环境（推荐）
